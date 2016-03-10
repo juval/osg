@@ -483,7 +483,11 @@ public:
             obj->getMaps()["osg.Light"] = createJSONLight(node.getLight());
             json->getMaps()["Light"] = obj;
         }
-
+        osg::ref_ptr<JSONValue<std::string> > referenceFrame = new JSONValue<std::string>("RELATIVE_RF");
+        if (node.getReferenceFrame() == osg::LightSource::ABSOLUTE_RF) {
+            referenceFrame = new JSONValue<std::string>("ABSOLUTE_RF");
+        }
+        json->getMaps()["ReferenceFrame"] = referenceFrame;
         _parents.push_back(json);
         traverse(node);
         _parents.pop_back();
