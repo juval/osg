@@ -30,7 +30,10 @@ namespace osgAnimation
     public:
         META_Object(osgAnimation, Animation)
 
-        Animation() : _duration(0), _weight(0), _startTime(0), _playmode(LOOP) {}
+        Animation() :
+            _duration(0.0), _originalDuration(0.0),
+            _weight(0), _startTime(0), _playmode(LOOP) {}
+
         Animation(const osgAnimation::Animation&, const osg::CopyOp&);
 
         enum PlayMode
@@ -66,9 +69,7 @@ namespace osgAnimation
          *  call this method before using it
          */
         void computeDuration();
-        double computeDurationFromChannels() const;
         double getDuration() const;
-
 
         void setWeight (float weight);
         float getWeight() const;
@@ -85,6 +86,8 @@ namespace osgAnimation
     protected:
 
         ~Animation() {}
+
+        double computeDurationFromChannels() const;
 
         double _duration;
         double _originalDuration;
